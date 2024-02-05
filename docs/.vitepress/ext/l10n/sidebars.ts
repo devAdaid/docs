@@ -273,7 +273,7 @@ export const ko: DefaultTheme.SidebarItem[] = [
             { text: "소개", link: "/ko/guide/" },
             { text: "호환성", link: "/ko/guide/compatibility" },
             { text: "시작하기", link: "/ko/guide/getting-started" },
-            { text: "구성", link: "/ko/guide/configuration" },
+            { text: "환경 설정", link: "/ko/guide/configuration" },
             { text: "Naninovel 스크립트", link: "/ko/guide/naninovel-scripts" },
             { text: "IDE 확장", link: "/ko/guide/ide-extension" },
             { text: "텍스트 프린터", link: "/ko/guide/text-printers" },
