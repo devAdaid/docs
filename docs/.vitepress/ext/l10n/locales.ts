@@ -69,6 +69,23 @@ export const config: LocaleConfig<DefaultTheme.Config> = {
             nav: buildNav(["FAQ", "Руководство", "Команды", "Поддержка"], "ru"),
             editLink: buildEditLink("Редактировать эту страницу на GitHub")
         }
+    },
+    ko: {
+        lang: "ko-kr",
+        label: "한국어",
+        description: "라이터 친화적인 비주얼 노벨 엔진",
+        themeConfig: {
+            langMenuLabel: "언어",
+            lastUpdated: { text: "갱신", formatOptions: { dateStyle: "medium" } },
+            sidebarMenuLabel: "메뉴",
+            darkModeSwitchLabel: "다크모드 전환",
+            returnToTopLabel: "맨 위로 이동",
+            outline: { label: "페이지 내 단락 바로가기", level: "deep" },
+            sidebar: { "/ko/guide/": sidebars.ko },
+            docFooter: { prev: "이전 페이지", next: "다음 페이지" },
+            nav: buildNav(["FAQ", "가이드", "커맨드 목록", "지원"], "ko"),
+            editLink: buildEditLink("GitHub에서 이 페이지 수정하기")
+        }
     }
 };
 
@@ -190,6 +207,47 @@ export const search: Record<string, Partial<DefaultTheme.AlgoliaSearchOptions>> 
                 noResultsScreen: {
                     noResultsText: "Ничего не найдено",
                     suggestedQueryText: "Возможно вы искали"
+                }
+            }
+        }
+    },
+    ko: {
+        placeholder: "검색",
+        translations: {
+            button: {
+                buttonText: "문서 검색",
+                buttonAriaLabel: "문서 검색"
+            },
+            modal: {
+                searchBox: {
+                    resetButtonTitle: "명확한 쿼리 기준",
+                    resetButtonAriaLabel: "명확한 쿼리 기준",
+                    cancelButtonText: "취소",
+                    cancelButtonAriaLabel: "취소"
+                },
+                startScreen: {
+                    recentSearchesTitle: "검색 기록",
+                    noRecentSearchesText: "검색 기록이 없습니다.",
+                    saveRecentSearchButtonTitle: "검색 기록에 저장",
+                    removeRecentSearchButtonTitle: "검색 기록에서 삭제",
+                    favoriteSearchesTitle: "수집",
+                    removeFavoriteSearchButtonTitle: "즐겨찾기에서 삭제"
+                },
+                errorScreen: {
+                    titleText: "결과를 찾을 수 없습니다.",
+                    helpText: "인터넷 접속을 확인해주세요."
+                },
+                footer: {
+                    selectText: "선택",
+                    navigateText: "이동",
+                    closeText: "닫기",
+                    searchByText: "로 검색"
+                },
+                noResultsScreen: {
+                    noResultsText: "결과가 없습니다.",
+                    suggestedQueryText: "쿼리를 시도할 수 있습니다.",
+                    reportMissingResultsText: "쿼리에 결과가 필요하십니까?",
+                    reportMissingResultsLinkText: "클릭 피드백"
                 }
             }
         }

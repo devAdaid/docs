@@ -264,3 +264,69 @@ export const ru: DefaultTheme.SidebarItem[] = [
         ]
     }
 ];
+
+export const ko: DefaultTheme.SidebarItem[] = [
+    {
+        text: "가이드",
+        collapsed: true,
+        items: [
+            { text: "소개", link: "/ko/guide/" },
+            { text: "호환성", link: "/ko/guide/compatibility" },
+            { text: "시작하기", link: "/ko/guide/getting-started" },
+            { text: "구성", link: "/ko/guide/configuration" },
+            { text: "Naninovel 스크립트", link: "/ko/guide/naninovel-scripts" },
+            { text: "IDE 확장", link: "/ko/guide/ide-extension" },
+            { text: "텍스트 프린터", link: "/ko/guide/text-printers" },
+            { text: "캐릭터", link: "/ko/guide/characters" },
+            { text: "배경", link: "/ko/guide/backgrounds" },
+            { text: "전환 효과", link: "/ko/guide/transition-effects" },
+            { text: "특별 효과", link: "/ko/guide/special-effects" },
+            { text: "오디오", link: "/ko/guide/audio" },
+            { text: "보이스", link: "/ko/guide/voicing" },
+            { text: "영상", link: "/ko/guide/movies" },
+            { text: "선택지", link: "/ko/guide/choices" },
+            { text: "유저 인터페이스", link: "/ko/guide/user-interface" },
+            { text: "세이브 로드 시스템", link: "/ko/guide/save-load-system" },
+            { text: "게임 설정", link: "/ko/guide/game-settings" },
+            { text: "입력 처리", link: "/ko/guide/input-processing" },
+            { text: "수집 요소", link: "/ko/guide/unlockable-items" },
+            { text: "사용자 정의 변수", link: "/ko/guide/custom-variables" },
+            { text: "스크립트 수식", link: "/ko/guide/script-expressions" },
+            { text: "관리형 텍스트", link: "/ko/guide/managed-text" },
+            { text: "현지화", link: "/ko/guide/localization" },
+            { text: "스프레드시트", link: "/ko/guide/spreadsheet" },
+            { text: "리소스 제공자", link: "/ko/guide/resource-providers" },
+            { text: "커뮤니티 모딩", link: "/ko/guide/community-modding" },
+            { text: "개발 콘솔", link: "/ko/guide/development-console" }
+        ]
+    },
+    {
+        text: "고급",
+        collapsed: true,
+        items: [
+            { text: "엔진 아키텍처", link: "/ko/guide/engine-architecture" },
+            { text: "엔진 서비스", link: "/ko/guide/engine-services" },
+            { text: "사용자 정의 커맨드", link: "/ko/guide/custom-commands" },
+            { text: "사용자 정의 구성", link: "/ko/guide/custom-configuration" },
+            { text: "사용자 정의 액터 구현", link: "/ko/guide/custom-actor-implementations" },
+            { text: "사용자 정의 액터 셰이더", link: "/ko/guide/custom-actor-shader" },
+            { text: "사용자 정의 스크립트 파서", link: "/ko/guide/custom-parser" },
+            { text: "상태 관리", link: "/ko/guide/state-management" },
+            { text: "통합 방법", link: "/ko/guide/integration-options" },
+            { text: "렌더 파이프라인", link: "/ko/guide/render-pipelines" },
+            { text: "사용자 정의 빌드 환경", link: "/ko/guide/custom-build-environment" }
+        ]
+    },
+    {
+        text: "확장",
+        collapsed: true,
+        items: [
+            { text: "Fountain", link: "/ko/guide/fountain" },
+            { text: "Playmaker", link: "/ko/guide/playmaker" },
+            { text: "Visual Scripting", link: "/ko/guide/visual-scripting" },
+            { text: "Adventure Creator", link: "/ko/guide/adventure-creator" },
+            { text: "인벤토리 시스템", link: "/ko/guide/inventory" },
+            { text: "UniTask", link: "/ko/guide/unitask" }
+        ]
+    }
+];
