@@ -175,7 +175,7 @@
 | 항목 | 기본값 | 설명 |
 --- | --- | ---
 | Loader<br>(로더) | Localization- (Addressable, Project) | 현지화 리소스와 함께 사용되는 리소스 로더의 구성. |
-| Languages<br>(언어) | Object Ref | 언어 표시 이름 기본값 에 매핑된 [RFC5646 언어 태그](https://gist.github.com/msikma/8912e62ed866778ff8cd). 변경 사항을 적용하려면 Unity 에디터를 재시작하세요. |
+| Languages<br>(언어) | Object Ref | 언어 표시 이름 기본값과 매핑된 RFC5646 언어 태그. 변경 사항을 적용하려면 Unity 에디터를 재시작하세요. |
 | Source Locale<br>(원본 언어 로케일) | En | 원본 프로젝트 리소스의 로케일. (프로젝트 에셋들이 작성되는 언어) |
 | Default Locale<br>(기본 Locale) | Null | 게임 첫 실행 시 기본적으로 선택되는 로케일. 지정하지 않은 경우 `Source Locale` 항목 값이 선택됩니다. |
 
@@ -224,9 +224,9 @@
 | Allow Addressable In Editor<br>(에디터에서 어드레서블 허용) | False | 에디터에서 어드레서블 제공자를 사용할지 여부. Naninovel의 리소스 관리자에게 리소스를 할당하는 대신, 어드레서블 주소를 통해 수동으로 리소스를 노출하길 원할 경우 활성화하세요. 이 기능을 활성화하면 리소스가 리소스 관리자와 어드레서블 주소 양쪽에 등록된 후 이름을 변경하거나 복제할 때 문제가 발생할 수 있으니, 주의하세요. |
 | Group By Category<br>(카테고리별 그룹) | False | Naninovel 리소스 카테고리별 어드레서블 그룹 생성 여부. (카테고리 예시: 스크립트, 캐릭터, 오디오 등) When disabled, will use a single `Naninovel` group for all the resources. |
 | Extra Labels<br> (추가 레이블) | Null | 어드레서블 제공자는 Naninovel 레이블 외에도 레이블이 할당된 에셋에서만 동작합니다. 사용자 정의 기준(예시: HD vs SD 텍스처)에 따라 엔진에서 사용되는 에셋을 필터링하는 데 사용할 수 있습니다. |
-| Local Root Path<br>(로컬 루트 경로) | %DATA%/Resources | 로컬 리소스 공급자에 사용할 경로 루트입니다. 리소스가 위치한 폴더에 대한 절대 경로이거나 사용 가능한 원본 중 하나의 상대 경로일 수 있습니다. <br> • %DATA% — 타겟 기기의 게임 데이터 폴더 (UnityEngine.Application.dataPath).<br> • %PDATA% — 타겟 기기의 영구 데이터 디렉터리 (UnityEngine.Application.persistentDataPath).<br> • %STREAM% — `StreamingAssets` 폴더 (UnityEngine.Application.streamingAssetsPath).<br> • %SPECIAL{F}% — OS 특수 폴더 (여기서 F는 System.Environment.SpecialFolder의 값). |
+| Local Root Path<br>(로컬 루트 경로) | %DATA%/Resources | 로컬 리소스 공급자에 사용할 경로 루트입니다. 리소스가 위치한 폴더에 대한 절대 경로이거나 사용 가능한 원본 중 하나의 상대 경로일 수 있습니다. <br> • %DATA% — 타겟 기기의 게임 데이터 폴더 (UnityEngine.Application.dataPath).<br> • %PDATA% — 타겟 기기의 persistent 데이터 디렉터리 (UnityEngine.Application.persistentDataPath).<br> • %STREAM% — `StreamingAssets` 폴더 (UnityEngine.Application.streamingAssetsPath).<br> • %SPECIAL{F}% — OS 특수 폴더 (여기서 F는 System.Environment.SpecialFolder의 값). |
 | Video Stream Extension<br>(비디오 스트림 확장자) | .mp 4 | WebGL에서 동영상을 스트리밍할 때 (영상, 동영상 배경), 동영상 파일의 확장자를 지정합니다. |
-| Project Root Path<br>(프로젝트 루트 경로) | Naninovel | 하위에 Naninovel 관련 에셋이 위치하는, Resources 폴더에 대한 상대 경로. |
+| Project Root Path<br>(프로젝트 루트 경로) | Naninovel | 하위에 Naninovel 관련 에셋이 위치하는, `Resources` 폴더에 대한 상대 경로. |
 
 </div>
 

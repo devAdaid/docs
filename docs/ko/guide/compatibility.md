@@ -4,10 +4,10 @@
 
 지원되는 Unity 버전 범위는 `2019.4 - 2022.3` 입니다. 해당 범위 내 [LTS 스트림](https://unity.com/releases/lts-vs-tech-stream)의 최신 패치만 지원됩니다. 알바 버전, 베타 버전, LTS가 아닌 버전(예시: `2021.1` or `2022.2`)은 정식으로 지원되지 않습니다. 이러한 버전에서 Naninovel이 동작할 수도 있지만, 사용에 대한 지원을 제공하지는 않습니다. 권장하는 Unity 버전은 [2019.4.40](https://unity3d.com/unity/whats-new/2019.4.40) 입니다.
 
-::: tip
+::: tip 팁
 Unity는 (주요 릴리스에서는 물론이고) LTS 패치에서도 회귀(* 새로운 버전에서 이전 버전의 기능이 저하되거나 제대로 동작하지 않는 것)가 흔하게 발생합니다. 따라서 Unity 2019의 최종 릴리스이자, 일반적인 비주얼 노벨 개발에서 알려진 버그가 없는 Unity 2019.4.40 버전 사용을 권장합니다. 또한 2020 및 2021 버전은 안정성 및 성능에서 회귀가 자주 발생하는 것으로 알려져 있으므로, 최신 Unity 버전을 사용하길 원하는 경우 2022.3 버전을 사용하세요.
 
-향후 LTS 상태에 도달한 Unity 릴리스에서 발생하는 호환성 문제는 다음 Naninovel 릴리즈에서 해결될 것입니다. 과거 Naninovel 릴리스와 호환되는 Unity 버전은 [업데이트 노트](https://github.com/naninovel/docs/releases)에 명시되어 있습니다.
+향후 LTS 상태에 도달한 Unity 릴리스에서 발생하는 호환성 문제는 다음 Naninovel 릴리스에서 해결될 것입니다. 과거 Naninovel 릴리스와 호환되는 Unity 버전은 [업데이트 노트](https://github.com/naninovel/docs/releases)에 명시되어 있습니다.
 :::
 
 ## UPM 패키지

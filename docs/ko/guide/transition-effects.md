@@ -1,4 +1,4 @@
-# 전환 효과
+# 트랜지션 효과
 
 When changing background and character appearances with [@back] and [@char] or performing scene transition with [@startTrans] and [@finishTrans] commands, you can additionally specify which transition effect to use. For example, following command will transition to "River" background using "DropFade" transition effect:
 

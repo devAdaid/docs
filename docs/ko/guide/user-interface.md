@@ -1,4 +1,4 @@
-# 유저 인터페이스
+# UI
 
 Naninovel comes with multiple built-in UIs: title (main) menu, game settings, save-load menu, backlog panel, CG gallery, tips and many others.
 
