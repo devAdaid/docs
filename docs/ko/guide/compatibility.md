@@ -48,6 +48,6 @@ Naninovel과 Unity의 [스크립터블 랜더 파이프라인](https://docs.unit
 
 [관리되는 바이트코드 스트리핑](https://docs.unity3d.com/Manual/ManagedCodeStripping.html)의 "Medium"과 "High" 프로필은 지원되지 않습니다. 스트리핑을 비활성화하거나, "Low" 프로필(기본)을 사용하세요.
 
-## 익셉션
+## 예외
 
 "Publishing Settings"의 `Enable Exceptions` 옵션에서는 적어도 "Explicitly Thrown Exceptions Only" 레벨이 필요합니다. 이 설정은 [WebGL 빌드](https://docs.unity3d.com/Manual/webgl-building)에서만 적용됩니다. "None" 레벨은 지원되지 않습니다.

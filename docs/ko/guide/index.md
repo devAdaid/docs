@@ -17,7 +17,7 @@ Nannovel은 Unity로 구현할 수 있는 것들을 제한하지는 않지만, �
 다음은 Naninovel이 제공하는 기능입니다.
 
 * [문서 기반 스크립트](/ko/guide/naninovel-scripts)
-  * [일반 텍스트 라인](/ko/guide/naninovel-scripts#generic-text-lines)
+  * [일반 텍스트 행](/ko/guide/naninovel-scripts#generic-text-lines)
   * [라벨](/ko/guide/naninovel-scripts#label-lines)
   * [인라인 커맨드](/ko/guide/naninovel-scripts#command-inlining)
   * [비주얼 에디터](/ko/guide/naninovel-scripts#visual-editor)
