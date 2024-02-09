@@ -1,24 +1,24 @@
 # 상태 관리
 
-All the persistent data generated and used by Naninovel at runtime is divided intro three categories:
+Naninovel이 런타임에 생성하고 사용하는, 모든 지속되는(persistent) 데이터는 다음과 같은 세 가지로 나뉩니다.
 
-- Game state
-- Global state
-- User settings
+- 게임 상태 (Game state)
+- 전역 상태 (Global state)
+- 사용자 설정 (User settings)
 
-The data is serialized to JSON format and stored as either binary `.nson` (default) or text `.json` save slot files under a platform-specific [persistent data directory](https://docs.unity3d.com/ScriptReference/Application-persistentDataPath.html). Under WebGL platform, due to LFS security policy in modern web-browsers, the serialized data is stored over the [Indexed DB](https://en.wikipedia.org/wiki/Indexed_Database_API) instead.
+데이터는 JSON 형식으로 직렬화되며, 바이너리 `.nson` (기본값) 또는 텍스트 `.json` 저장 슬롯 파일로 플랫폼별 [persistent 데이터 디렉토리](https://docs.unity3d.com/ScriptReference/Application-persistentDataPath.html)에 저장횝니다. WebGL 플랫폼에서는 현대 웹 브라우저의 LFS 보안 정책으로 인해, 직렬화된 데이터는 이 대신 [Indexed DB](https://en.wikipedia.org/wiki/Indexed_Database_API)를 통해 저장됩니다.
 
-The serialization behaviour is controlled by serialization handlers independently for game saves, global state and user settings. By default, universal serialization handlers are used. In most cases, they will use asynchronous [System.IO](https://docs.microsoft.com/en-us/dotnet/api/system.io) to read and write the slot files to the local file system. However, on some platforms (eg, consoles) the .NET IO APIs are not available, in which case the universal handlers will fallback to Unity's cross-platform [PlayerPrefs](https://docs.unity3d.com/ScriptReference/PlayerPrefs.html).
+직렬화 동작은 게임 저장, 전역 상태 및 사용자 설정을 위해 직렬화 핸들러에 의해 제어됩니다. 기본적으로, 범용 직렬화 핸들러가 사용됩니다. 대부분의 경우 핸들러는 비동기식 [System.IO](https://docs.microsoft.com/en-us/dotnet/api/system.io)를 사용하여 슬롯 파일을 로컬 파일 시스템에 읽고 씁니다. 그러나 일부 플랫폼(예시: 콘솔)에서는 .NET IO API를 사용할 수 없으며, 이 경우 범용 핸들러는 Unity의 크로스 플랫폼 [PlayerPrefs](https://docs.unity3d.com/ScriptReference/PlayerPrefs.html)으로 대체됩니다.
 
-Serialization handlers, path to the save folder, maximum allowed amount of the save slots and other related parameters can be modified via the state configuration menu.
+상태 구성 메뉴를 통해 직렬화 핸들러, 저장 파일 경로, 저장 슬롯 최대 개수, 다른 관련 매개변수들을 수정할 수 있습니다.
 
 ![](https://i.gyazo.com/d1e5cfd136544f2c1b74966e3fd1bb45.png)
 
-## Game State
+## 게임 상태
 
-Game state is the data that varies per game save slot, describing state of the engine services and other objects in relation to the player progress with the game. The examples of the game state data are: currently played naninovel script and index of the played script command within the script, currently visible characters and their positions on scene, currently played background music track name and its volume and so on.
+게임 상태는 게임 저장 슬롯마다 달라지는 데이터로, 플레이어의 게임 진행과 관련된 엔진 서비스 및 기타 오브젝트의 상태를 나타냅니다. 게임 상태 데이터 예시: 현재 재생된 Naninovel 스크립트, 재생된 스크립트 커맨드의 인덱스, 현재 표시되고 있는 캐릭터 및 씬에서의 위치, 현재 재생된 배경음 트랙 이름 및 볼륨 등.
 
-To save or load current game state to specific save slot, use `IStateManager` engine service as follows:
+현재 게임 상태를 저장하거나 특정 저장 슬롯에 로드하려면 `IStateManager` 엔진 서비스를 다음과 같이 사용합니다.
 
 ```csharp
 // Get instance of a state manager.
@@ -33,33 +33,33 @@ await stateManager.LoadGameAsync("mySaveSlot");
 await stateManager.QuickSaveAsync();
 await stateManager.QuickLoadAsync();
 ```
-Notice, that the save-load API is [asynchronous](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/async/). In case you're invoking the API from synchronous methods, use `IStateManager.OnGameSaveFinished` and `IStateManager.OnGameLoadFinished` for subscribing to the completion events.
+저장-불러오기 API는 [비동기식](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/async/)입니다. 동기 메소드에서 API를 호출하는 경우, 완료 이벤트를 구독하기 위해 `IStateManager.OnGameSaveFinished`와 `IStateManager.OnGameLoadFinished`를 사용하세요.
 
-## Global State
+## 전역 상태
 
-Some data, however, should be persistent across the game sessions. For example, "Skip Read Text" feature requires the engine to store data describing which naninovel script commands were executed at least once (meaning the player has already "seen" them). The data like this is stored in a single "global" save slot and doesn't depend on the game save-load operations.
+반면에, 어떤 데이터는 게임 세션 동안 유지되어야 합니다. 예를 들어, "읽은 텍스트 스킵" 기능을 위해서는 엔진이 어떤 Naninovel 스크립트 커멘드가 적어도 한 번 실행되었는지에 관한 데이터를 저장해야 합니다 (플레이어가 이미 이미 그것들을 "보았다"는 것을 의미). 이와 같은 데이터는 하나의 "전역" 세이브 슬롯에 저장되며 게임 저장-불러오기 작업에 의존하지 않습니다.
 
-The global state is loaded automatically on engine initialization. You can save the global state at any time using `IStateManager` as follows:
+전역 상태는 엔진 초기화 시 자동으로 로드됩니다. 다음과 같이 `IStateManager`를 사용하여 언제든지 전역 상태를 저장할 수 있습니다.
 
 ```csharp
 await stateManager.SaveGlobalStateAsync();
 ```
 
-## User Settings
+## 사용자 설정
 
-Similar to the global state, user settings data (display resolution, language, sound volume, etc) is stored in a single save slot, but treated a bit differently by default: the generated save file is placed outside of the "Saves" folder and formatted in a readable fashion, so that user can modify the values if they wish.
+사용자 설정 데이터(화면 해상도, 언어, 사운드 볼륨 등)는 단일 저장 슬롯에 저장되는 점은 전역 상태와 비슷하지만, 기본적으로 약간 다르게 처리됩니다. 생성된 저장 파일은 "Saves" 폴더 외부에 읽을 수 있는 형식으로 파일이 생성되어, 사용자가 원할 경우 값을 수정할 수 있습니다.
 
-The user settings are loaded automatically on engine initialization. You can save the settings at any time using `IStateManager` as follows:
+사용자 설정은 엔진 초기화 시 자동으로 로드됩니다. 다음과 같이 `IStateManager`를 사용하여 언제든지 사용자 설정을 저장할 수 있습니다.
 
 ```csharp
 await stateManager.SaveSettingsAsync();
 ```
 
-## Custom State
+## 사용자 정의 상태
 
-It's possible to delegate state handling of your custom objects to `IStateManager`, so that they will serialize to the save slots with all the engine's data when player saves the game and deserialize back when the game is loaded. All the built-in state-related features (eg, rollback) will also work out of the box with the custom state.
+사용자 정의 오브젝트의 상태 처리를 `IStateManager`에게 맡길 수 있습니다. 이를 통해 플레이어가 게임을 저장할 때 모든 엔진 데이터를 저장 슬롯에 직렬화하고, 게임을 불러올 때 역직렬화할 수 있습니다. 모든 상태 관련 내장 기능(예시: 롤백)은 기본적으로 사용자 정의 상태와 사용해도 잘 동작할 것입니다.
 
-Following example demonstrates delegating state handling of "MyCustomBehaviour" component.
+다음은 "MyCustomBehaviour" 컴포넌트의 상태 처리를 위임하는 예제입니다.
 
 ```csharp
 using UnityEngine;
@@ -116,11 +116,11 @@ public class MyCustomBehaviour : MonoBehaviour
 }
 ```
 
-::: tip EXAMPLE
-A more advanced example of using custom state with a list of custom structs to save-load game state of an inventory UI can be found in the [inventory example project on GitHub](https://github.com/naninovel/samples/tree/main/unity/inventory). Specifically, de-/serialization of the custom state is implemented in [InventoryUI.cs](https://github.com/naninovel/samples/blob/main/unity/inventory/Assets/NaninovelInventory/Runtime/UI/InventoryUI.cs#L246) custom UI.
+::: tip 예제
+사용자 정의 구조체의 리스트를 포함하는 사용자 정의 상태를 사용하여 인벤토리 UI의 게임 상태를 저장 및 불러오기를 하는 심화 예제는 [GitHub의 인벤토리 예제 프로젝트](https://github.com/naninovel/samples/tree/main/unity/inventory)에서 확인할 수 있습니다. 이 중, 사용자 정의 UI인 [InventoryUI.cs](https://github.com/naninovel/samples/blob/main/unity/inventory/Assets/NaninovelInventory/Runtime/UI/InventoryUI.cs#L246)에 사용자 정의 상태의 직렬화/역직렬화가 구현되어 있습니다.
 :::
 
-It's also possible to access global and settings state of the engine to store custom data with them. Unlike game state, which is specific to game sessions and require subscribing to save/load events, global and settings state objects are singletons and can be directly accessed via properties of the state manager.
+엔진의 전역 및 설정 상태에 접근하여 사용자 정의 데이터를 같이 저장할 수도 있습니다. 게임 세션에 한정되고 저장/불러오기 이벤트 구독이 필요한 게임 상태와 달리, 전역 및 설정 상태 오브젝트는 싱글톤이며 상태 관리자의 프로퍼티를 통해 직접 접근할 수 있습니다.
 
 ```csharp
 [System.Serializable]
@@ -148,7 +148,7 @@ MyGlobal MyGlobal
 }
 ```
 
-The state objects are indexed by type, while in some cases you may have multiple object instances of the same type each with their own individual state. Both `GetState` and `SetState` methods allows providing an optional `instanceId` argument to discriminate such objects, eg:
+상태 오브젝트들은 타입별로 구분됩니다. 그렇지만 각각 개별적인 상태를 가지면서 같은 타입인 여러 오브젝트 인스턴스를 만들고 싶은 경우도 있을 것입니다. `GetState`와 `SetState`메소드는 그러한 오브젝트들을 구별하기 위해 모두 `instanceId` 선택적 인자를 사용할 수 있습니다.
 
 ```csharp
 [System.Serializable]
@@ -161,19 +161,19 @@ var monster1 = stateMap.GetState<MonsterState>("1");
 var monster2 = stateMap.GetState<MonsterState>("2");
 ```
 
-## Custom Serialization Handlers
+## 사용자 정의 직렬화 핸들러
 
-By default, when universal serialization handlers are selected, the engine state (game saves, global state, settings) is serialized either via asynchronous [System.IO](https://docs.microsoft.com/en-us/dotnet/api/system.io) or with Unity's cross-platform [PlayerPrefs](https://docs.unity3d.com/ScriptReference/PlayerPrefs.html) as a fallback for some platforms. To customize the serialization scenario, use custom handlers.
+기본적으로 범용 직렬화 핸들러가 선택되면, 엔진 상태(게임 저장 파일들, 전역 상태, 사용자 설정)는 비동기식 [System.IO](https://docs.microsoft.com/en-us/dotnet/api/system.io)를 통해 직렬화됩니다. 일부 플랫폼에서는 Unity의 크로스 플랫폼 [PlayerPrefs](https://docs.unity3d.com/ScriptReference/PlayerPrefs.html)를 통해 직렬화됩니다. 직렬화 동작을 직접 지정하고 싶다면, 사용자 정의 핸들러를 사용하세요.
 
-To add a custom handler, implement `ISaveSlotManager<GameStateMap>`, `ISaveSlotManager<GlobalStateMap>`, `ISaveSlotManager<SettingsStateMap>` interfaces for the game save slots, global state and settings respectively (each should have its own implementing class).
+사용자 정의 핸들러를 추가하려면 게임 저장 슬롯을 위해서는 `ISaveSlotManager<GameStateMap>` 인터페이스를, 전역 상태를 위해서는 `ISaveSlotManager<GlobalStateMap>` 인터페이스를, 사용자 설정을 위해서는 `ISaveSlotManager<SettingsStateMap>` 인터페이스를 구현하세요. (각 인터페이스에 해당하는 클래스는 별도로 구현해야 합니다.)
 
-Implementation is expected to have a public constructor with `StateConfiguration` and `string` arguments, where the first one is an instance of state configuration object and second is the path to saves folder; you're free to ignore the arguments in your custom implementation.
+구현체는 `StateConfiguration`와 `string` 인수를 사용하는 public 생성자를 가지고 있어야 합니다. 여기서 첫 번째 인자는 상태 구성 오브젝트의 인스턴스이며, 두 번째 인자는 폴더를 저장하는 경로입니다. 사용자 정의 구현에서는 이러한 인수를 반드시 사용할 필요는 없습니다.
 
-::: warning
-When adding custom implementation types under a non-predefined assembly (via [assembly definitions](https://docs.unity3d.com/Manual/ScriptCompilationAssemblyDefinitionFiles.html)), add the assembly name to the `Type Assemblies` list found in the engine configuration menu. Otherwise, the engine won't be able to locate your custom types.
+::: warning 경고
+사용자 정의 구현 타입을 ([어셈블리 정의](https://docs.unity3d.com/Manual/ScriptCompilationAssemblyDefinitionFiles.html)를 통해) 사전 정의되지 않은 어셈블리 하위에 추가할 경우, 엔진 구성 메뉴에 있는 `Type Assemblies` 목록에 어셈블리 이름을 추가하세요. 그렇지 않으면, 엔진이 사용자 정의 타입을 찾을 수 없습니다.
 :::
 
-Below is an example of a custom settings serialization handler, which is doing nothing but logs when any of its methods are invoked.
+다음은 메소드가 호출될 때 로그만 남기는, 사용자 정의 설정 직렬화 핸들러의 예제입니다.
 
 ```csharp
 using Naninovel;
@@ -232,10 +232,10 @@ public class CustomSettingsSlotManager : ISaveSlotManager<SettingsStateMap>
 }
 ```
 
-::: info NOTE
-You can pick any name for your custom serialization handler, `CustomSettingsSlotManager` is just an example.
+::: info 참고
+사용자 정의 직렬화 핸들러의 이름은 자유롭게 정할 수 있습니다. `CustomSettingsSlotManager`은 예시일 뿐입니다.
 :::
 
-When a custom handler is implemented, it'll appear in the state configuration menu, where you can set it instead of the built-in one.
+사용자 정의 핸들러가 구현되면 상태 구성 메뉴에 표시되며, 내장 핸들러 대신 선택할 수 있습니다.
 
 ![](https://i.gyazo.com/213bc2bb8c7cc0e62ae98a579579f313.png)
